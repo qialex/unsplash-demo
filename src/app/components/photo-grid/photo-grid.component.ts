@@ -16,9 +16,9 @@ export class PhotoGridComponent implements OnInit, OnDestroy {
   @ViewChild(PerfectScrollbarDirective) public readonly ps: PerfectScrollbarDirective;
 
   private readonly _subs: any[] = [];
-  public photos: PhotoInterface[];
+  public photos: PhotoInterface[] = [];
+  public photosTransformed: any;
   public userSelected: UserInterface;
-  public arrayForLoops = [0, 1, 2];
 
   constructor(
     private router: Router,
@@ -27,9 +27,27 @@ export class PhotoGridComponent implements OnInit, OnDestroy {
   ) {
     this._subs.push(this.unsplashSingleton.photosObservable.subscribe((photos: PhotoInterface[]) => {
       this.photos = photos;
+      this.photosTransformed = this._transformPhotos(photos);
       this.userSelected = this.unsplashSingleton.userSelected;
       this.ref.detectChanges();
     }));
+  }
+
+  private _transformPhotos(photos: PhotoInterface[]): any {
+
+    // result represent 3 collections of photos for 3 cols
+    const result = new Array(3).fill(0).map(_ => ({
+      heightByWidth: 0,
+      photos: [],
+    }));
+
+    photos.map((photo: PhotoInterface) => {
+      const column = result.reduce((a, b) => a.heightByWidth < b.heightByWidth ? a : b);
+      column.photos.push(photo);
+      column.heightByWidth += photo.height / photo.width;
+    });
+
+    return result;
   }
 
   ngOnInit() {
@@ -48,10 +66,6 @@ export class PhotoGridComponent implements OnInit, OnDestroy {
 
   handleDeselect() {
     this.unsplashSingleton.deselectUser();
-  }
-
-  filterPhotosIntoThreeRows(num: number): PhotoInterface[] {
-    return (this.photos || []).filter((_, i) => i % 3 === num);
   }
 
   async handleDownloadClicked(photo: PhotoInterface) {

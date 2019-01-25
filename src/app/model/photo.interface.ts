@@ -6,4 +6,6 @@ export interface PhotoInterface {
     thumb: string
   };
   likes: number;
+  height: number;
+  width: number;
 }

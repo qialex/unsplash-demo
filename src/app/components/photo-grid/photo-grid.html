@@ -14,8 +14,8 @@
     <div class="text-grey">Gifted by the world’s most generous community of photographers. 🎁</div>
   </div>
   <div class="photo-loops-wrapper">
-    <div class="photo-loop" *ngFor="let arrayItem of arrayForLoops">
-      <div *ngFor="let photo of filterPhotosIntoThreeRows(arrayItem)" class="photo-item">
+    <div class="photo-loop" *ngFor="let photosCollection of photosTransformed">
+      <div *ngFor="let photo of photosCollection.photos" class="photo-item">
         <div class="image-wrapper">
           <img [ngStyle]="{backgroundImage: 'url(' + photo?.urls?.thumb + ')'}" [attr.src]="photo?.urls?.small">
           <div class="photo-hover" (click)="handlePhotoClick($event, photo)">
