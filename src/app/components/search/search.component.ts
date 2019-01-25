@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { UnsplashSingleton } from '../../services';
+import {Component, EventEmitter, Output} from '@angular/core';
 
 
 @Component({
@@ -9,15 +8,14 @@ import { UnsplashSingleton } from '../../services';
 })
 export class SearchComponent {
 
+  @Output() public readonly queryChanged: EventEmitter<string> = new EventEmitter();
+
   private readonly LAG_AFTER_INPUT = 350;
   private _timeout: number;
 
-  queryPrevious: string;
-  query: string;
+  public query: string;
 
-  constructor(
-    private unsplashSingleton: UnsplashSingleton,
-  ) { }
+  constructor( ) { }
 
   // while you are typing frequently it will wait,
   // but once you will pause in LAG_AFTER_INPUT ms a search request will be performed
@@ -28,8 +26,7 @@ export class SearchComponent {
     }
 
     this._timeout = setTimeout(() => {
-      this.unsplashSingleton.usersSearch(this.query, this.queryPrevious);
-      this.queryPrevious = this.query;
+      this.queryChanged.emit(this.query);
     }, this.LAG_AFTER_INPUT);
   }
 }

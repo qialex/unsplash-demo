@@ -1,3 +1,16 @@
-<div *ngFor="let user of users" (click)="handleUserClick(user)">
-  {{ user?.id }}
+<div  class="user-list-component">
+
+  <app-search (queryChanged)="handleQueryChanged($event)"></app-search>
+
+  <div class="users-list" [perfectScrollbar] (psYReachEnd)="handlePsYReachEnd()">
+
+    <div *ngFor="let user of users" (click)="handleUserClick(user)">
+
+      <img [attr.src]="user?.profile_image?.small">
+      @{{ user?.username }}
+      {{ user?.id }}
+
+    </div>
+  </div>
+
 </div>

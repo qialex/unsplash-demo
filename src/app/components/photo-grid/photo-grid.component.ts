@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { UnsplashApiService, UnsplashSingleton } from '../../services';
+import {ChangeDetectorRef, Component, ViewChild} from '@angular/core';
+import { UnsplashSingleton } from '../../services';
+import { PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 
 
 @Component({
@@ -9,10 +10,27 @@ import { UnsplashApiService, UnsplashSingleton } from '../../services';
 })
 export class PhotoGridComponent {
 
-  public readonly photos: any[] = this.unsplashSingleton.photos;
+  @ViewChild(PerfectScrollbarDirective) public readonly ps: PerfectScrollbarDirective;
+
+  public photos: any[];
 
   constructor(
-    private unsplashApiService: UnsplashApiService,
     private unsplashSingleton: UnsplashSingleton,
-  ) { }
+    private ref: ChangeDetectorRef
+  ) {
+    this.unsplashSingleton.photosObservable.subscribe((photos: any[]) => {
+      this.photos = photos;
+      this.ref.detectChanges();
+    });
+  }
+
+  handlePsYReachEnd() {
+
+    const geometry = this.ps.geometry();
+
+    if (geometry.y) {
+
+      this.unsplashSingleton.photosGetMore();
+    }
+  }
 }

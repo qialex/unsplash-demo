@@ -1,3 +1,5 @@
-<div *ngFor="let photo of photos">
-  <img [attr.src]="photo?.urls?.small">
+<div [perfectScrollbar] (psYReachEnd)="handlePsYReachEnd()" class="photo-grid-component">
+  <div *ngFor="let photo of photos">
+    <img [attr.src]="photo?.urls?.small">
+  </div>
 </div>

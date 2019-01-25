@@ -6,6 +6,18 @@ import { environment } from '@env';
 
 export class UnsplashInterceptor implements HttpInterceptor {
 
+  static handleError(error: HttpErrorResponse) {
+    console.error (error);
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    window.alert(errorMessage);
+    return throwError(errorMessage);
+  }
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     request = request.clone({
       setHeaders: {
@@ -16,20 +28,7 @@ export class UnsplashInterceptor implements HttpInterceptor {
     return next.handle(request)
       .pipe(
         retry(1),
-        catchError(this.handleError)
+        catchError(UnsplashInterceptor.handleError)
       );
-  }
-
-  handleError(error: HttpErrorResponse) {
-    let errorMessage = '';
-    if (error.error instanceof ErrorEvent) {
-      // client-side error
-      errorMessage = `Error: ${error.error.message}`;
-    } else {
-      // server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    window.alert(errorMessage);
-    return throwError(errorMessage);
   }
 }

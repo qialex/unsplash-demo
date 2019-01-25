@@ -10,11 +10,21 @@ export class UnsplashApiService {
     private httpClient: HttpClient,
   ) { }
 
-  apiUserSearch(query: string) {
-    return this.httpClient.get(environment.unsplash.apiUrl + `search/users?query=${encodeURIComponent(query)}`);
+  apiUserSearch(query: string, perPage: number, page: number) {
+
+    const options = {params: {
+      query: encodeURIComponent(query),
+      per_page: perPage.toString(),
+      page: page.toString()
+    }};
+
+    return this.httpClient.get(environment.unsplash.apiUrl + `search/users`, options);
   }
 
-  apiGetUserPhoto(username: string) {
-    return this.httpClient.get(environment.unsplash.apiUrl + `users/${encodeURIComponent(username)}/photos`);
+  apiGetUserPhoto(username: string, perPage: number, page: number) {
+
+    const options = {params: {per_page: perPage.toString(), page: page.toString()}};
+
+    return this.httpClient.get(environment.unsplash.apiUrl + `users/${encodeURIComponent(username)}/photos`, options);
   }
 }
