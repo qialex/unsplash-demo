@@ -348,7 +348,13 @@ MIT
 @angular/router
 MIT
 
+@ngx-progressbar/core
+MIT
+
 @angular/forms
+MIT
+
+@ngx-progressbar/http
 MIT
 
 zone.js
