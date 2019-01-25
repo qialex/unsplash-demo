@@ -2,6 +2,8 @@ import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { UnsplashSingleton } from '../../services';
 import { PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 import { Router } from '@angular/router';
+import { PhotoInterface, UserInterface } from '../../model';
+import { PhotoSingleComponent } from '..';
 
 
 @Component({
@@ -13,8 +15,8 @@ export class PhotoGridComponent {
 
   @ViewChild(PerfectScrollbarDirective) public readonly ps: PerfectScrollbarDirective;
 
-  public photos: any[];
-  public userSelected: any;
+  public photos: PhotoInterface[];
+  public userSelected: UserInterface;
   public arrayForLoops = [0, 1, 2];
   public firstTime = true;
 
@@ -31,7 +33,7 @@ export class PhotoGridComponent {
     });
   }
 
-  handlePsYReachEnd() {
+  handlePsYReachEnd(): void {
 
     const geometry = this.ps.geometry();
 
@@ -41,11 +43,11 @@ export class PhotoGridComponent {
     }
   }
 
-  filterPhotosIntoThreeRows(num: number) {
+  filterPhotosIntoThreeRows(num: number): PhotoInterface[] {
     return (this.photos || []).filter((_, i) => i % 3 === num);
   }
 
-  async handleDownloadClicked(photo) {
+  async handleDownloadClicked(photo: PhotoInterface) {
     const blob = await fetch(photo.urls.full).then(r => r.blob());
     const link = document.createElement('a');
     link.download = `${photo.id}.jpg`;
@@ -55,13 +57,13 @@ export class PhotoGridComponent {
     document.body.removeChild(link);
   }
 
-  handlePhotoClick(event, photo) {
+  handlePhotoClick(event: any, photo: PhotoInterface): void {
     if (event.target.classList.contains(`photo-hover`)) {
       this.router.navigate(['/photo-single', photo.id], {skipLocationChange: true});
     }
   }
 
-  handleActivate(event) {
+  handleActivate(event: PhotoSingleComponent): void {
     event.photo = this.photos.find(photo => photo.id === event.photoIdFromRoute);
   }
 }

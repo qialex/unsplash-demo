@@ -1,2 +1,0 @@
-# unsplash-demo
-unsplash-demo

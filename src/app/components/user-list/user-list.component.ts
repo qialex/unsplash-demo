@@ -1,6 +1,7 @@
-import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { UnsplashApiService, UnsplashSingleton } from '../../services';
-import {PerfectScrollbarDirective} from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
+import { UserInterface } from '../../model';
 
 
 @Component({
@@ -16,8 +17,8 @@ export class UserListComponent {
   private _allLoaded: boolean;
   private _queryPrevious: string;
 
-  public users: any[] = [];
-  public userSelected: any = {};
+  public users: UserInterface[] = [];
+  public userSelected: UserInterface = {} as UserInterface;
   public loading: boolean;
 
   constructor(
@@ -41,7 +42,7 @@ export class UserListComponent {
     });
   }
 
-  public handleUserClick(user: any) {
+  public handleUserClick(user: UserInterface) {
     this.userSelected = user;
     this.unsplashSingleton.photosGetByUser(user);
   }
@@ -69,7 +70,7 @@ export class UserListComponent {
     });
   }
 
-  private _usersAddOrNothing(users: any[]): void {
+  private _usersAddOrNothing(users: UserInterface[]): void {
     if (!users.length) {
       this._allLoaded = true;
     } else {

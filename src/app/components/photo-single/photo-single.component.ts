@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {PhotoInterface} from '../../model';
 
 
 @Component({
@@ -11,7 +12,7 @@ export class PhotoSingleComponent implements OnDestroy {
 
   private _subs: any[] = [];
 
-  public photo: any;
+  public photo: PhotoInterface;
   public photoIdFromRoute: string;
   public loading = true;
 

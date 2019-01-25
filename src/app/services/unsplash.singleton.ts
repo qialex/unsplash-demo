@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UnsplashApiService } from './unsplash.api.service';
 import { Subject } from 'rxjs';
+import { UserInterface, PhotoInterface } from '../model';
 
 
 @Injectable()
@@ -8,9 +9,9 @@ export class UnsplashSingleton {
 
   private readonly PER_PAGE_PHOTOS: number = 25;
 
-  public readonly userSelected: any = {};
-  public readonly photos: any[] = [];
-  public readonly photosObservable: Subject<any> = new Subject<any>();
+  public readonly userSelected: UserInterface = {} as UserInterface;
+  public readonly photos: PhotoInterface[] = [];
+  public readonly photosObservable: Subject<PhotoInterface[]> = new Subject<PhotoInterface[]>();
   private _photosAllLoaded: boolean;
 
   public loading: boolean;
@@ -19,11 +20,11 @@ export class UnsplashSingleton {
     private unsplashApiService: UnsplashApiService,
   ) { }
 
-  private _userSelect(user): void {
+  private _userSelect(user: UserInterface): void {
     Object.assign(this.userSelected, user);
   }
 
-  private _photosAddOrNothing(photos: any[]): void {
+  private _photosAddOrNothing(photos: PhotoInterface[]): void {
     if (!photos.length) {
       this._photosAllLoaded = true;
     } else {
@@ -36,7 +37,7 @@ export class UnsplashSingleton {
     this.photos.length = 0;
   }
 
-  public photosGetByUser(user: any) {
+  public photosGetByUser(user: UserInterface): void {
     if (this.userSelected.id === user.id) {
       return;
     }
@@ -51,7 +52,7 @@ export class UnsplashSingleton {
     });
   }
 
-  public photosGetMore() {
+  public photosGetMore(): void {
     if (this.loading) {
       return;
     }
