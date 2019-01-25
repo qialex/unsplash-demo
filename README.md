@@ -30,6 +30,10 @@ To demonstrate different aspects of Angular
 18. loading on scroll
 19. interfaces
 
+### Demo
+
+Try it [here](https://qialex.github.io/unsplash-demo/)
+
 ##### mini games (demos):
 
 1. [Sokoban](http://qialex.github.io/React-Redux-Sokoban) - React/Redux
