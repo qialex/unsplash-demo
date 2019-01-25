@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {PhotoInterface} from '../../model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PhotoInterface } from '../../model';
 
 
 @Component({

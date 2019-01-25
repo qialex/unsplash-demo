@@ -10,6 +10,7 @@ export class UnsplashSingleton {
   private readonly PER_PAGE_PHOTOS: number = 25;
 
   public readonly userSelected: UserInterface = {} as UserInterface;
+  public readonly userSelectedObservable: Subject<UserInterface> = new Subject<UserInterface>();
   public readonly photos: PhotoInterface[] = [];
   public readonly photosObservable: Subject<PhotoInterface[]> = new Subject<PhotoInterface[]>();
   private _photosAllLoaded: boolean;
@@ -22,6 +23,14 @@ export class UnsplashSingleton {
 
   private _userSelect(user: UserInterface): void {
     Object.assign(this.userSelected, user);
+    this.userSelectedObservable.next(this.userSelected);
+  }
+
+  private _deselectUser() {
+    for (const prop of Object.getOwnPropertyNames(this.userSelected)) {
+      delete this.userSelected[prop];
+    }
+    this.userSelectedObservable.next(this.userSelected);
   }
 
   private _photosAddOrNothing(photos: PhotoInterface[]): void {
@@ -31,6 +40,7 @@ export class UnsplashSingleton {
       this.photos.push(...photos);
     }
     this.photosObservable.next(this.photos);
+    this.loading = false;
   }
 
   private _photosReset(): void {
@@ -58,9 +68,23 @@ export class UnsplashSingleton {
     }
     const page: number = ( ( this.photos.length / this.PER_PAGE_PHOTOS ) << 0 ) + 1;
     this.loading = true;
-    this.unsplashApiService.apiGetUserPhoto(this.userSelected.username, this.PER_PAGE_PHOTOS, page).subscribe((photos: any) => {
-      this._photosAddOrNothing(photos);
-      this.loading = false;
-    });
+    if (this.userSelected && this.userSelected.username) {
+      this.unsplashApiService.apiGetUserPhoto(this.userSelected.username, this.PER_PAGE_PHOTOS, page)
+        .subscribe(this._photosAddOrNothing.bind(this));
+    } else {
+      this.unsplashApiService.apiGetTopPhotos(this.PER_PAGE_PHOTOS, page)
+        .subscribe(this._photosAddOrNothing.bind(this));
+    }
+  }
+
+  public deselectUser(): void {
+    if (this.loading) {
+      return;
+    }
+    this._deselectUser();
+    this._photosReset();
+    this.loading = true;
+    this.unsplashApiService.apiGetTopPhotos(this.PER_PAGE_PHOTOS, 1)
+      .subscribe(this._photosAddOrNothing.bind(this));
   }
 }

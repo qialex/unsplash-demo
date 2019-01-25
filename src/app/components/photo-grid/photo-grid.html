@@ -1,12 +1,17 @@
 <div [perfectScrollbar] (psYReachEnd)="handlePsYReachEnd()" class="photo-grid-component">
-  <div *ngIf="userSelected" class="user-single">
+  <div *ngIf="userSelected?.name" class="user-single">
     <div class="user-avatar">
       <img [attr.src]="userSelected?.profile_image?.large">
     </div>
     <div class="user-description">
-      <div class="user-name">{{ userSelected?.name }}</div>
+      <div class="user-name">{{ userSelected?.name }} <sup class="icon-deselect" (click)="handleDeselect()">X</sup></div>
       <div class="user-username"><a [attr.href]="userSelected?.links?.html">@{{ userSelected?.username }}</a></div>
     </div>
+  </div>
+  <div *ngIf="!userSelected?.name" class="init-header">
+    <h1>Unsplash Demo</h1>
+    <div class="text-grey">Beautiful, free photos.</div>
+    <div class="text-grey">Gifted by the world’s most generous community of photographers. 🎁</div>
   </div>
   <div class="photo-loops-wrapper">
     <div class="photo-loop" *ngFor="let arrayItem of arrayForLoops">
@@ -25,7 +30,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="!photos?.length && !firstTime" class="inform-message">
+  <div *ngIf="!photos?.length" class="inform-message">
     There is no photos... yet
   </div>
 </div>

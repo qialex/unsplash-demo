@@ -115,5 +115,18 @@
         color: #111;
       }
     }
+    .icon-deselect {
+      font-size: 0.4em;
+      cursor: pointer;
+      color: #777
+    }
+  }
+
+  .init-header {
+    margin-bottom: 3em;
+
+    .text-grey {
+      color: #757575;
+    }
   }
 }

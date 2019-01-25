@@ -10,6 +10,18 @@ export class UnsplashApiService {
     private httpClient: HttpClient,
   ) { }
 
+
+  apiGetTopPhotos(perPage: number, page: number) {
+
+    const options = {params: {
+        order_by: `popular`,
+        per_page: perPage.toString(),
+        page: page.toString()
+      }};
+
+    return this.httpClient.get(environment.unsplash.apiUrl + `photos`, options);
+  }
+
   apiUserSearch(query: string, perPage: number, page: number) {
 
     const options = {params: {

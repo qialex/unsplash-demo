@@ -4,7 +4,7 @@
 
   <div class="users-list" [perfectScrollbar] (psYReachEnd)="handlePsYReachEnd()">
 
-    <div *ngFor="let user of users" (click)="handleUserClick(user)" class="user-single {{userSelected === user ? 'selected' : ''}}">
+    <div *ngFor="let user of users" (click)="handleUserClick(user)" class="user-single {{userSelected?.id === user.id ? 'selected' : ''}}">
 
       <div class="user-avatar">
         <img [attr.src]="user?.profile_image?.medium">
@@ -15,8 +15,11 @@
       </div>
     </div>
 
-    <div *ngIf="!users?.length" class="inform-message">
-      There is no users... yet
+    <div *ngIf="isMessageTypeSomething()" class="inform-message">
+      Type something to find a user
+    </div>
+    <div *ngIf="isMessageNoUser()" class="inform-message">
+      No users found
     </div>
   </div>
 
