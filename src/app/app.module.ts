@@ -5,7 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 import { UnsplashInterceptor, UnsplashApiService, UnsplashSingleton } from './services';
-import { AppComponent, FooterComponent, PhotoGridComponent, SearchComponent, UserListComponent } from './components';
+import { AppComponent, FooterComponent, PhotoGridComponent, PhotoSingleComponent, SearchComponent, UserListComponent } from './components';
+import { AppRoutingModule } from './app-routing.module';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -17,6 +18,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppComponent,
     FooterComponent,
     PhotoGridComponent,
+    PhotoSingleComponent,
     SearchComponent,
     UserListComponent,
   ],
@@ -25,6 +27,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpClientModule,
     FormsModule,
     PerfectScrollbarModule,
+    AppRoutingModule,
   ],
   providers: [
     {

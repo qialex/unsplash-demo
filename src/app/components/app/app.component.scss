@@ -5,11 +5,6 @@
   .content-wrapper {
     flex-grow: 1;
     display: flex;
-    height: calc(100% - 5em);
-  }
-
-  .footer-wrapper {
-    width: 100%;
-    height: 5em;
+    height: 100%;
   }
 }

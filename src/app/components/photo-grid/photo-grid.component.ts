@@ -1,27 +1,33 @@
-import {ChangeDetectorRef, Component, ViewChild} from '@angular/core';
-import {UnsplashApiService, UnsplashSingleton} from '../../services';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { UnsplashSingleton } from '../../services';
 import { PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
+import { Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-photo-grid',
   templateUrl: './photo-grid.html',
-  styleUrls: ['./photo-grid.scss']
+  styleUrls: ['./photo-grid.scss', '../user-list/user-single.scss']
 })
 export class PhotoGridComponent {
 
   @ViewChild(PerfectScrollbarDirective) public readonly ps: PerfectScrollbarDirective;
 
   public photos: any[];
+  public userSelected: any;
   public arrayForLoops = [0, 1, 2];
+  public firstTime = true;
 
   constructor(
+    private router: Router,
+    private ref: ChangeDetectorRef,
     private unsplashSingleton: UnsplashSingleton,
-    private ref: ChangeDetectorRef
   ) {
     this.unsplashSingleton.photosObservable.subscribe((photos: any[]) => {
       this.photos = photos;
+      this.userSelected = this.unsplashSingleton.userSelected;
       this.ref.detectChanges();
+      this.firstTime = false;
     });
   }
 
@@ -47,5 +53,15 @@ export class PhotoGridComponent {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  }
+
+  handlePhotoClick(event, photo) {
+    if (event.target.classList.contains(`photo-hover`)) {
+      this.router.navigate(['/photo-single', photo.id], {skipLocationChange: true});
+    }
+  }
+
+  handleActivate(event) {
+    event.photo = this.photos.find(photo => photo.id === event.photoIdFromRoute);
   }
 }

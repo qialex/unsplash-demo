@@ -1,0 +1,57 @@
+.user-single {
+  display: flex;
+  margin: 0.7em 1.5em 0.7em 0;
+  padding: .3em;
+  transition: background-color 0.35s ease, box-shadow 0.35s ease;
+  cursor: pointer;
+  border-radius: 3px;
+
+  &:hover {
+    background-color: rgba(135, 206, 235, 0.35);
+    box-shadow: 0 10px 6px -6px rgba(0, 0, 0, 0.06);
+  }
+  &.selected {
+    background: #ADD8E6;
+    box-shadow: 0 10px 6px -6px rgba(0, 0, 0, 0.08);
+
+    .user-username {
+      color: #2F4F4F;
+    }
+  }
+
+  .user-avatar {
+    width: 4em;
+    line-height: 0;
+
+    img {
+      border-radius: 100%;
+      width: 4em;
+      height: auto;
+    }
+  }
+
+  .user-description {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 1em;
+    padding-left: 1em;
+
+    .user-name {
+      font-size: 1.5em;
+      word-break: break-word;
+    }
+
+    .user-username {
+      font-size: 0.8em;
+      color: #696969;
+      word-break: break-word;
+    }
+  }
+}
+
+.inform-message {
+  color: rgb(117, 117, 117);
+  font-size: 1.1em;
+}

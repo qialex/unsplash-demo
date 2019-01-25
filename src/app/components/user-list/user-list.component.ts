@@ -6,7 +6,7 @@ import {PerfectScrollbarDirective} from 'ngx-perfect-scrollbar';
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.html',
-  styleUrls: ['./user-list.scss']
+  styleUrls: ['./user-list.scss', './user-single.scss']
 })
 export class UserListComponent {
 

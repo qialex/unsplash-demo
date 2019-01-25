@@ -8,12 +8,15 @@
     border: 0;
     border-bottom: 1px solid;
     border-color: #b3b3b3;
-    transition: border-color 0.25s ease;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
     color: #131315;
+    box-shadow: 0 10px 6px -6px rgba(0, 0, 0, 0.06);
+    border-radius: 1px;
 
     &:focus {
       border-color: #7f7f7f;
       outline: none;
+      box-shadow: 0 10px 6px -6px rgba(0, 0, 0, 0.09);
     }
   }
 }

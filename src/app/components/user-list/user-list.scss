@@ -13,51 +13,6 @@
     max-height: calc(100% - 5em);
     position: relative;
     min-width: 200px;
-
-    .user-single {
-      display: flex;
-      margin: 0.7em 1.5em 0.7em 0;
-      padding: .3em;
-      transition: background-color 0.35s ease;
-      cursor: pointer;
-
-      &:hover {
-        background-color: blanchedalmond;
-      }
-      &.selected {
-        background: navajowhite;
-      }
-
-      .user-avatar {
-        width: 4em;
-        line-height: 0;
-
-        img {
-          border-radius: 100%;
-          width: 4em;
-          height: auto;
-        }
-      }
-
-      .user-description {
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding-bottom: 1em;
-        padding-left: 1em;
-
-        .user-name {
-          font-size: 1.5em;
-          word-break: break-word;
-        }
-
-        .user-username {
-          font-size: 0.8em;
-          color: dimgrey;
-          word-break: break-word;
-        }
-      }
-    }
   }
 }
+
