@@ -3,6 +3,7 @@ export interface PhotoInterface {
   urls: {
     full: string,
     small: string,
+    thumb: string
   };
   likes: number;
 }

@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PhotoInterface } from '../../model';
 
@@ -8,13 +8,13 @@ import { PhotoInterface } from '../../model';
   templateUrl: './photo-single.html',
   styleUrls: ['./photo-single.scss']
 })
-export class PhotoSingleComponent implements OnDestroy {
+export class PhotoSingleComponent implements OnInit, OnDestroy {
 
   private _subs: any[] = [];
 
   public photo: PhotoInterface;
   public photoIdFromRoute: string;
-  public loading = true;
+  public display = false;
 
   constructor(
     private router: Router,
@@ -23,6 +23,12 @@ export class PhotoSingleComponent implements OnDestroy {
     this._subs.push(activatedRoute.params.subscribe(params => {
       this.photoIdFromRoute = params.photoId;
     }));
+  }
+
+  ngOnInit() {
+    setTimeout(() => {
+      this.display = true;
+    });
   }
 
   handleClose(event?): void {

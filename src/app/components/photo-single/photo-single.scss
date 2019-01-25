@@ -23,6 +23,19 @@
     padding: 1em;
     background-color: white;
     position: relative;
+    cursor: initial;
+    border-radius: 3px;
+    min-width: 30%;
+    min-height: 30%;
+    transition: all .5s ease-in-out;
+    transform-origin: left top;
+    transform: scaleY(0);
+    top: -1000px;
+
+    &.visible {
+      transform: scaleY(1);
+      top: 0;
+    }
 
     .close-icon {
       position: absolute;
@@ -30,11 +43,11 @@
       right: 0;
       border-radius: 100%;
       background-color: white;
-      width: 1.2em;
-      height: 1.2em;
-      font-size: 1.8em;
+      width: 2em;
+      height: 2em;
+      font-size: 1em;
       text-align: center;
-      line-height: 1.1em;
+      line-height: 2.2em;
       color: #535353;
       transition: color 0.4s ease;
       cursor: pointer;
@@ -48,6 +61,11 @@
     img {
       max-width: 80vw;
       max-height: 80vh;
+      opacity: 1;
+      transition: opacity 2s ease;
+      z-index: 2;
+      background-size: 100%;
+      background-repeat: no-repeat;
     }
   }
 }

@@ -1,6 +1,6 @@
 <div class="photo-single-component" (click)="handleClose($event)">
-  <div class="image-wrapper">
-    <div class="close-icon" (click)="handleClose()">x</div>
-    <img [attr.src]="photo?.urls?.full" class="{{loading ? 'full-opacity' : ''}}" (load)="loading = false" />
+  <div class="image-wrapper {{display ? 'visible' : ''}}">
+    <div class="close-icon" (click)="handleClose()">✕</div>
+    <img [ngStyle]="{backgroundImage: 'url(' + photo?.urls?.thumb + ')'}" [attr.src]="photo?.urls?.full"/>
   </div>
 </div>
