@@ -4,12 +4,19 @@
 
   <div class="users-list" [perfectScrollbar] (psYReachEnd)="handlePsYReachEnd()">
 
-    <div *ngFor="let user of users" (click)="handleUserClick(user)">
+    <div *ngFor="let user of users" (click)="handleUserClick(user)" class="user-single {{userSelected === user ? 'selected' : ''}}">
 
-      <img [attr.src]="user?.profile_image?.small">
-      @{{ user?.username }}
-      {{ user?.id }}
+      <div class="user-avatar">
+        <img [attr.src]="user?.profile_image?.medium">
+      </div>
+      <div class="user-description">
+        <div class="user-name">{{ user?.name }}</div>
+        <div class="user-username">@{{ user?.username }}</div>
+      </div>
+    </div>
 
+    <div *ngIf="!users?.length">
+      There is no users... yet
     </div>
   </div>
 

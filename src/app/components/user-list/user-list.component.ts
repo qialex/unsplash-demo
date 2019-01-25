@@ -17,7 +17,7 @@ export class UserListComponent {
   private _queryPrevious: string;
 
   public users: any[] = [];
-  public readonly userSelected: any = {};
+  public userSelected: any = {};
   public loading: boolean;
 
   constructor(
@@ -42,7 +42,7 @@ export class UserListComponent {
   }
 
   public handleUserClick(user: any) {
-
+    this.userSelected = user;
     this.unsplashSingleton.photosGetByUser(user);
   }
 

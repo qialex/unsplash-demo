@@ -1,5 +1,22 @@
 <div [perfectScrollbar] (psYReachEnd)="handlePsYReachEnd()" class="photo-grid-component">
-  <div *ngFor="let photo of photos">
-    <img [attr.src]="photo?.urls?.small">
+  <div class="photo-loops-wrapper">
+    <div class="photo-loop" *ngFor="let arrayItem of arrayForLoops">
+      <div *ngFor="let photo of filterPhotosIntoThreeRows(arrayItem)" class="photo-item">
+        <div class="image-wrapper">
+          <img [attr.src]="photo?.urls?.small">
+          <div class="photo-hover">
+              <div class="image-likes-wrapper">
+                <div class="image-likes-text"><span class="icon-heart">❤</span> {{photo?.likes}}</div>
+              </div>
+              <div class="image-download-wrapper">
+                <div class="image-download-text" (click)="handleDownloadClicked(photo)">↘</div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!photos?.length">
+      There is no photos... yet
+    </div>
   </div>
 </div>

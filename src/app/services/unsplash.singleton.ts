@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
 @Injectable()
 export class UnsplashSingleton {
 
-  private readonly PER_PAGE_PHOTOS: number = 15;
+  private readonly PER_PAGE_PHOTOS: number = 25;
 
   public readonly userSelected: any = {};
   public readonly photos: any[] = [];

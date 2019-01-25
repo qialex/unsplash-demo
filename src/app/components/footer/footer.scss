@@ -1,0 +1,12 @@
+.footer-component {
+  height: 1em;
+  padding: 2em 1em;
+
+  a {
+    color: #999;
+    transition: color .5s ease;
+    &:hover {
+      color: #111;
+    }
+  }
+}

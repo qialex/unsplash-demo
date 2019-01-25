@@ -1,0 +1,19 @@
+.component-search {
+  height: 4em;
+  padding-top: 1em;
+
+  input {
+    font-size: 1.3em;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid;
+    border-color: #b3b3b3;
+    transition: border-color 0.25s ease;
+    color: #131315;
+
+    &:focus {
+      border-color: #7f7f7f;
+      outline: none;
+    }
+  }
+}
