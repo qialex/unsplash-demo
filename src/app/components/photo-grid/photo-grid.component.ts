@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UnsplashSingleton } from '../../services';
 import { PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 import { Router } from '@angular/router';
@@ -24,6 +24,7 @@ export class PhotoGridComponent implements OnInit, OnDestroy {
     private router: Router,
     private ref: ChangeDetectorRef,
     private unsplashSingleton: UnsplashSingleton,
+    private ngZone: NgZone // https://github.com/angular/angular/issues/25837#issuecomment-434049467
   ) {
     this._subs.push(this.unsplashSingleton.photosObservable.subscribe((photos: PhotoInterface[]) => {
       this.photos = photos;
@@ -80,7 +81,9 @@ export class PhotoGridComponent implements OnInit, OnDestroy {
 
   handlePhotoClick(event: any, photo: PhotoInterface): void {
     if (event.target.classList.contains(`photo-hover`)) {
-      this.router.navigate(['/photo-single', photo.id], {skipLocationChange: true});
+      this.ngZone.run(() => {
+        this.router.navigate(['/photo-single', photo.id], {skipLocationChange: true});
+      });
     }
   }
 
